@@ -1,15 +1,22 @@
 {
   "name": "paperclip-cloudflare-sandbox-bridge",
   "main": "src/index.ts",
-  "compatibility_date": "2026-05-09",
+  "compatibility_date": "2026-10-01",
   "compatibility_flags": ["nodejs_compat"],
-  "vars": { "SANDBOX_TRANSPORT": "rpc" },
+  "vars": {
+    "SANDBOX_INSTANCE_TYPE": "standard-2",
+    "SANDBOX_ENABLE_INTERNET": "true"
+  },
   "containers": [
     {
+      "name": "paperclip-sandbox",
       "class_name": "Sandbox",
-      "image": "./Dockerfile",
-      "instance_type": "standard-2",
-      "max_instances": 10
+      "scheduling_policy": "durable_object",
+      "images": {
+        "sandbox": {
+          "dockerfile": "./Dockerfile"
+        }
+      }
     }
   ],
   "durable_objects": {
@@ -25,5 +32,6 @@
       "tag": "v1",
       "new_sqlite_classes": ["Sandbox"]
     }
-  ]
+  ],
+  "observability": { "enabled": true }
 }

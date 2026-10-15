@@ -1,12 +1,3 @@
-/**
- * Container lifecycle logging for diagnosing mid-run container restarts.
- *
- * The Sandbox SDK (0.12.x) only logs container stops at debug level, which
- * Workers observability does not keep. These helpers build one structured,
- * warn/error-level record per lifecycle event so each stop's exit code,
- * reason and uptime are queryable. Nothing here changes container behaviour.
- */
-
 export type LifecycleEvent = "container.start" | "container.stop" | "container.error" | "container.activity_expired";
 
 export interface StopInfo {
@@ -25,7 +16,6 @@ export interface LifecycleRecord {
   at: string;
 }
 
-/** Exit code 137 = SIGKILL (often OOM), 143 = SIGTERM. */
 export function classifyExit(exitCode: number | null | undefined): string | null {
   if (exitCode === null || exitCode === undefined) return null;
   if (exitCode === 0) return "clean_exit";
