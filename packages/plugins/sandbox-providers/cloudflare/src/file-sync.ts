@@ -16,7 +16,7 @@ import type { CloudflareBridgeExecuteRequest, CloudflareBridgeExecuteResponse } 
 
 const execFileAsync = promisify(execFile);
 
-export const UPLOAD_PART_BYTES = 64 * 1024 * 1024;
+export const UPLOAD_PART_BYTES = 4 * 1024 * 1024;
 export const TRANSFER_ATTEMPTS = 3;
 export const TRANSFER_BACKOFF_MS = [1_000, 3_000] as const;
 
